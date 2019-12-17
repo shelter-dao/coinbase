@@ -72,8 +72,8 @@ class MeanReversion(bt.SignalStrategy):
             self.bar_executed = len(self)
             self.orderTime = None
 
-        elif order.status in [order.Canceled, order.Margin, order.Rejected]:
-            # self.log('Order Canceled/Margin/Rejected')
+        # elif order.status in [order.Canceled, order.Margin, order.Rejected]:
+        #     # self.log('Order Canceled/Margin/Rejected')
 
         self.order = None
 
