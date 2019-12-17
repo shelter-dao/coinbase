@@ -1,5 +1,7 @@
+import sys
+sys.path.append('../')
+
 from coinbase import CoinbasePipeline
-from sma_golden_cross import SMAGoldenCross
 from mean_reversion import MeanReversion
 
 import datetime as dt
