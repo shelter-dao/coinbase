@@ -55,38 +55,36 @@ class MeanReversion(bt.SignalStrategy):
         # Attention: broker could reject order if not enough cash
         if order.status in [order.Completed]:
             if order.isbuy():
-                self.log(
-                    'BUY EXECUTED, Price: %.2f, Cost: %.2f, Position: %.2f' %
-                    (order.executed.price,
-                     order.executed.value,
-                     self.position.size))
+                # self.log(
+                #     'BUY EXECUTED, Price: %.2f, Cost: %.2f, Position: %.2f' %
+                #     (order.executed.price,
+                #      order.executed.value,
+                #      self.position.size))
 
                 self.buyprice = order.executed.price
                 self.buycomm = order.executed.comm
-            else:  # Sell
-                 self.log('SELL EXECUTED, Price: %.2f, Cost: %.2f, Position: %.2f' %
-                         (order.executed.price,
-                          order.executed.value,
-                          self.position.size))
+            # else:  # Sell
+            #      self.log('SELL EXECUTED, Price: %.2f, Cost: %.2f, Position: %.2f' %
+            #              (order.executed.price,
+            #               order.executed.value,
+            #               self.position.size))
 
             self.bar_executed = len(self)
             self.orderTime = None
 
         elif order.status in [order.Canceled, order.Margin, order.Rejected]:
-            self.log('Order Canceled/Margin/Rejected')
+            # self.log('Order Canceled/Margin/Rejected')
 
         self.order = None
 
     def notify_trade(self,trade):
         if not trade.isclosed:
             return
-        else:
-            self.log('OPERATION PROFIT, GROSS {0:8.2f}, NET {1:8.2f}'.format(
-                trade.pnl, trade.pnlcomm))
+        # else:
+            # self.log('OPERATION PROFIT, GROSS {0:8.2f}, NET {1:8.2f}'.format(
+            #     trade.pnl, trade.pnlcomm))
 
     def next(self):
-        # print(dt.datetime.now())
-        # Log closing price
         if self.order:
             if self.order.isbuy():
                 # print(self.order)
@@ -103,7 +101,7 @@ class MeanReversion(bt.SignalStrategy):
                 self.order = self.buy(exectype=bt.Order.Limit,
                                       price=self.boll.lines.bot[0],
                                       valid=bt.Order.DAY)
-                self.log('BUY CREATE, %.2f' % self.close[0])
+                # self.log('BUY CREATE, %.2f' % self.close[0])
                 # print(self.boll.lines.bot[0])
                 # print(self.boll.lines.mid[0])
                 self.sellprice = self.boll.lines.mid[0]
@@ -111,8 +109,8 @@ class MeanReversion(bt.SignalStrategy):
                 # if our position is a buy, place a sell limit order at the bollinger band mid line
             if self.position.size > 0:
                 if self.close[0] > self.sellprice:
-                    self.log('SELL CREATE, %.2f' % self.close[0])
-                    self.log('High Price, %.2f' % self.high[0])
+                    # self.log('SELL CREATE, %.2f' % self.close[0])
+                    # self.log('High Price, %.2f' % self.high[0])
                     self.order = self.sell(exectype=bt.Order.Limit,
                                    price=self.boll.mid[0])
 
