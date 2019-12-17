@@ -1,6 +1,12 @@
+import sys
+sys.path.append('../')
+sys.path.append('../sma-golden-cross')
+sys.path.append('../mean-reversion')
+
 from coinbase import CoinbasePipeline
 from sma_golden_cross import SMAGoldenCross
 from mean_reversion import MeanReversion
+from parse_dates import ParseDates
 
 import datetime as dt
 import pandas as pd
@@ -28,10 +34,12 @@ if __name__ == '__main__':
  #    pipeline = CoinbasePipeline('BTC-USD',start=start, granularity=3600)
  #    dataframe = pipeline.get_data()
  #
-    dataframe = pd.read_csv("./hist-data/ETH-BTC-100d-1hr-12-16.csv",
-                            index_col="datetime",
-                            parse_dates=['datetime'])
+    # dataframe = pd.read_csv("./hist-data/ETH-BTC-100d-1hr-12-16.csv",
+    #                         index_col="datetime",
+    #                         parse_dates=['datetime'])
 
+    hist_data = ParseDates("ETH-BTC", dt.datetime(2018, 10, 1),dt.datetime.now(),"3600" )
+    dataframe = hist_data.get_data()
 
     data = feeds.PandasData(dataname=dataframe)
     cerebro.adddata(data)

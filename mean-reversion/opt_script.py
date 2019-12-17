@@ -60,7 +60,7 @@ if __name__ == '__main__':
     by_devfactor = sorted(final_results_list, key=lambda x: x[2])
     print(by_PnL[:10])
 
-    totalTime = dt.datetime.now() - startTime
+    totalTime = dt.datetime.now() - start
     print('Processing Time:{}'.format(totalTime))
 
     #Print results
