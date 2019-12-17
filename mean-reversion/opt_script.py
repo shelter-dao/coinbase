@@ -13,6 +13,7 @@ import backtrader.indicators as btind
 import backtrader.analyzers as btanalyzers
 
 if __name__ == '__main__':
+    start = dt.datetime.now()
     strategy = MeanReversion
     startcash = 10 #BTC
 
@@ -29,7 +30,7 @@ if __name__ == '__main__':
     # pipeline = CoinbasePipeline('BTC-USD',start=start, granularity=3600)
     # dataframe = pipeline.get_data()
 
-    dataframe = pd.read_csv("./hist-data/ETH-BTC-100d-1hr-12-16.csv",
+    dataframe = pd.read_csv("./../hist-data/ETH-BTC-100d-1hr-12-16.csv",
                             index_col="datetime",
                             parse_dates=['datetime'])
 
@@ -58,6 +59,9 @@ if __name__ == '__main__':
     by_PnL = sorted(final_results_list, key=lambda x: x[1], reverse=True)
     by_devfactor = sorted(final_results_list, key=lambda x: x[2])
     print(by_PnL[:10])
+
+    totalTime = dt.datetime.now() - startTime
+    print('Processing Time:{}'.format(totalTime))
 
     #Print results
     # print('Results: Ordered by period:')
