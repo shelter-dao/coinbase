@@ -59,7 +59,7 @@ if __name__ == '__main__':
     totalTime = dt.datetime.now() - startTime
     print('Processing Time:{}'.format(totalTime))
 
-    cerebro.plot()
+    # cerebro.plot()
 
     # pipeline.change_graph()
     # pipeline.candlestick_graph()

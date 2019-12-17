@@ -1,3 +1,6 @@
+import sys
+sys.path.append('../')
+
 from coinbase import CoinbasePipeline
 from mean_reversion import MeanReversion
 
