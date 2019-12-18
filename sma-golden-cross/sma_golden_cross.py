@@ -70,6 +70,6 @@ class SMAGoldenCross(bt.SignalStrategy):
                     self.order = self.sell()
 
     def stop(self):
-        pnl = round(self.broker.getvalue() - 100000,2)
+        pnl = round(self.broker.getvalue() - 10,5)
         print('pfast: {} pslow: {} Final PnL: {}'.format(
             self.params.pfast, self.params.pslow, pnl))

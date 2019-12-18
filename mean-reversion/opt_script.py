@@ -1,6 +1,8 @@
 import sys
 sys.path.append('../')
+sys.path.append('../scripts')
 
+from parse_dates import ParseDates
 from coinbase import CoinbasePipeline
 from mean_reversion import MeanReversion
 
@@ -21,18 +23,8 @@ if __name__ == '__main__':
     cerebro.optstrategy(strategy, period=range(1,40),
                                   devfactor=range(1,40))
 
-    # one_year = dt.timedelta(days=365)
-    # days_100 = dt.timedelta(days=100)
-    # days_150 = dt.timedelta(days=150)
-    # days_30  = dt.timedelta(days=30)
-    # month_6  = dt.timedelta(days=180)
-    # start = dt.datetime.now() - days_100
-    # pipeline = CoinbasePipeline('BTC-USD',start=start, granularity=3600)
-    # dataframe = pipeline.get_data()
-
-    dataframe = pd.read_csv("./../hist-data/ETH-BTC-100d-1hr-12-16.csv",
-                            index_col="datetime",
-                            parse_dates=['datetime'])
+    hist_data = ParseDates("ETH-BTC", dt.datetime(2019, 10, 1),dt.datetime.now(),"3600" )
+    dataframe = hist_data.get_data()
 
     data = feeds.PandasData(dataname=dataframe)
     cerebro.adddata(data)
@@ -50,7 +42,7 @@ if __name__ == '__main__':
     for run in opt_runs:
         for strategy in run:
             value = strategy.value
-            PnL = round(value - startcash,5)
+            PnL = value - startcash
             period = strategy.params.period
             devfactor = strategy.params.devfactor
             final_results_list.append([period,PnL,devfactor])

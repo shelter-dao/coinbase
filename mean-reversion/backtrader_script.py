@@ -22,21 +22,8 @@ if __name__ == '__main__':
     cerebro = bt.Cerebro(runonce=False, optreturn=False)
     cerebro.addstrategy(strategy)
 
- # Used when you don't have the csv data and need to pull from the internet
- #    one_year = dt.timedelta(days=365)
- #    days_100 = dt.timedelta(days=100)
- #    days_150 = dt.timedelta(days=150)
- #    days_30  = dt.timedelta(days=30)
- #    month_6  = dt.timedelta(days=180)
- #    start = dt.datetime.now() - days_100
- #    pipeline = CoinbasePipeline('BTC-USD',start=start, granularity=3600)
- #    dataframe = pipeline.get_data()
- #
-    # dataframe = pd.read_csv("./../hist-data/ETH-BTC-100d-1hr-12-16.csv",
-    #                         index_col="datetime",
-    #                         parse_dates=['datetime'])
 
-    hist_data = ParseDates("ETH-BTC", dt.datetime(2018, 10, 1),dt.datetime.now(),"3600" )
+    hist_data = ParseDates("ETH-BTC", dt.datetime(2019, 10, 1),dt.datetime.now(),"3600" )
     dataframe = hist_data.get_data()
 
     data = feeds.PandasData(dataname=dataframe)
@@ -63,7 +50,7 @@ if __name__ == '__main__':
     totalTime = dt.datetime.now() - startTime
     print('Processing Time:{}'.format(totalTime))
 
-    # cerebro.plot()
+    cerebro.plot()
 
     # pipeline.change_graph()
     # pipeline.candlestick_graph()
