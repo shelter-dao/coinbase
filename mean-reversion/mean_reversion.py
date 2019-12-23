@@ -15,8 +15,8 @@ class MeanReversion(bt.SignalStrategy):
     '''
 
     params = (
-        ("period", 32),
-        ("devfactor", 26),
+        ("period", 3),
+        ("devfactor", 12),
         ("size", 20),
         ("expiration", 2),
         ("sell_margin", 1.02)
@@ -101,7 +101,7 @@ class MeanReversion(bt.SignalStrategy):
                 self.order = self.buy(exectype=bt.Order.Limit,
                                       price=self.boll.lines.bot[0],
                                       valid=bt.Order.DAY)
-                # self.log('BUY CREATE, %.2f' % self.close[0])
+                self.log('BUY CREATE, %.2f' % self.close[0])
                 # print(self.boll.lines.bot[0])
                 # print(self.boll.lines.mid[0])
                 self.sellprice = self.boll.lines.mid[0]
@@ -109,7 +109,7 @@ class MeanReversion(bt.SignalStrategy):
                 # if our position is a buy, place a sell limit order at the bollinger band mid line
             if self.position.size > 0:
                 if self.close[0] > self.sellprice:
-                    # self.log('SELL CREATE, %.2f' % self.close[0])
+                    self.log('SELL CREATE, %.2f' % self.close[0])
                     # self.log('High Price, %.2f' % self.high[0])
                     self.order = self.sell(exectype=bt.Order.Limit,
                                    price=self.boll.mid[0])

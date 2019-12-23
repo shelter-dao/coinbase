@@ -20,10 +20,10 @@ if __name__ == '__main__':
     startcash = 10 #BTC
 
     cerebro = bt.Cerebro(runonce=False, optreturn=False)
-    cerebro.optstrategy(strategy, period=range(1,40),
-                                  devfactor=range(1,40))
+    cerebro.optstrategy(strategy, period=range(1,30),
+                                  devfactor=range(8,15))
 
-    hist_data = ParseDates("ETH-BTC", dt.datetime(2019, 10, 1),dt.datetime.now(),"3600" )
+    hist_data = ParseDates("ETH-BTC", dt.datetime(2019, 11, 1),dt.datetime.now(),"300" )
     dataframe = hist_data.get_data()
 
     data = feeds.PandasData(dataname=dataframe)

@@ -23,7 +23,7 @@ if __name__ == '__main__':
     cerebro.addstrategy(strategy)
 
 
-    hist_data = ParseDates("ETH-BTC", dt.datetime(2019, 10, 1),dt.datetime.now(),"3600" )
+    hist_data = ParseDates("ETH-BTC", dt.datetime(2019, 8, 1),dt.datetime.now(),"21600" )
     dataframe = hist_data.get_data()
 
     data = feeds.PandasData(dataname=dataframe)
