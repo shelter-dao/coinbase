@@ -9,8 +9,15 @@ global dataFeed
 class MyClient(Client):
 
     def on_message(self, message):
-        dataFeed = pd.DataFrame(message, index=[len(message)])
-        print(dataFeed.iloc[0])
+        print(message)
+        if message['type'] == 'ticker':
+            dataFeed = pd.Series(message)
+            print('**************************************')
+            print(dataFeed)
+            # print(dataFeed.columns)
+            # dataFeed.set_index('time')
+            # print(dataFeed)
+            print('**************************************')
 
     # TODO: implement a way to open up the feed asynchronously, either as a module or using async.get_event_loop()
     # def open_feed():
