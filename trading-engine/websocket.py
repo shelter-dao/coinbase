@@ -28,9 +28,9 @@ class WebsocketHandler(object):
         self.data.at[0,'time'] = dt.strptime(self.data.at[0, 'time'], '%Y-%m-%dT%H:%M:%S.%fZ')
         self.data.rename(columns={"time": "datetime"}, inplace=True)
         self.data.set_index('datetime', inplace=True, drop=True)
-        # print(self.data)
-        # async with open(ticker_csv, mode='a+') as f:
-        #     await data.to_csv(f, mode='a+', header=f.tell()==0,)
+        print(self.data)
+        with open(ticker_csv, mode='a+') as f:
+              self.data.to_csv(f, mode='a+', header=f.tell()==0,)
 
 class Websocket(Client):
 
@@ -39,8 +39,8 @@ class Websocket(Client):
 
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()
-    loop.set_debug(enabled=True)
-    logging.basicConfig(level=logging.DEBUG)
+    # loop.set_debug(enabled=True)
+    # logging.basicConfig(level=logging.DEBUG)
     # TODO: listen to multiple channels
     ws_ticker = Websocket(loop, Channel('ticker', 'BTC-USD'))
 
